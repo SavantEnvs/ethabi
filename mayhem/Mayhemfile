@@ -1,0 +1,15 @@
+# ethabi ABI-decode in-process libFuzzer target (cargo-fuzz / libfuzzer-sys).
+# Port of the original fork's `decode` harness: fuzz ethabi::decode over an
+# arbitrary (Vec<ParamType>, payload) pair derived from the input bytes.
+project: savantenvs/ethabi
+target: decode
+image: mayhemheroes/ethabi:latest
+
+cmds:
+  - cmd: /mayhem/decode
+    libfuzzer: true
+
+# Benign seed corpus (spec §9): server-accumulated tar + canonical per-target path.
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/decode/testsuite
