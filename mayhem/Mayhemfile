@@ -1,0 +1,12 @@
+# ethabi ABI-decode in-process libFuzzer target (cargo-fuzz / libfuzzer-sys).
+# Port of the original fork's `decode` harness: fuzz ethabi::decode over an
+# arbitrary (Vec<ParamType>, payload) pair derived from the input bytes.
+project: savantenvs/ethabi
+target: decode-buggy-mhh-run-9
+image: mayhemheroes/ethabi:latest
+
+# origin: https://app.mayhem.security/mayhemheroes/ethabi/decode/9
+
+cmds:
+  - cmd: /mayhem/decode
+    libfuzzer: true
